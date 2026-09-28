@@ -1,0 +1,46 @@
+@model List<BugFlow.Web.ViewModels.UserManagementViewModel>
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>User Management</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <span class="badge bg-primary me-1">@role</span>
+                    }
+                    @if (!user.Roles.Any())
+                    {
+                        <span class="text-muted">No role assigned</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ManageRoles" asp-route-userId="@user.UserId" class="btn btn-sm btn-outline-secondary">
+                        Manage Roles
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

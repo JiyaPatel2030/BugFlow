@@ -1,0 +1,120 @@
+@model BugFlow.Web.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row mt-3">
+    <div class="col-md-2">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Model.TotalBugs</h5>
+                <p class="card-text">Total Bugs</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Model.OpenBugs</h5>
+                <p class="card-text">New / Open</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-dark bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Model.InProgressBugs</h5>
+                <p class="card-text">In Progress</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ResolvedBugs</h5>
+                <p class="card-text">Resolved</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@Model.ClosedBugs</h5>
+                <p class="card-text">Closed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h4>My Assigned Bugs</h4>
+        @if (!Model.MyAssignedBugs.Any())
+        {
+            <p class="text-muted">No bugs assigned to you.</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var bug in Model.MyAssignedBugs)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a asp-controller="Bugs" asp-action="Details" asp-route-id="@bug.Id">@bug.Title</a>
+                        <span class="badge bg-secondary">@bug.Status</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <h4>My Reported Bugs</h4>
+        @if (!Model.MyReportedBugs.Any())
+        {
+            <p class="text-muted">You haven't reported any bugs yet.</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var bug in Model.MyReportedBugs)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a asp-controller="Bugs" asp-action="Details" asp-route-id="@bug.Id">@bug.Title</a>
+                        <span class="badge bg-secondary">@bug.Status</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <h4>Recent Bugs</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Reported By</th>
+                <th>Assigned To</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bug in Model.RecentBugs)
+            {
+                <tr>
+                    <td><a asp-controller="Bugs" asp-action="Details" asp-route-id="@bug.Id">@bug.Title</a></td>
+                    <td>@bug.Priority</td>
+                    <td>@bug.Status</td>
+                    <td>@(bug.ReportedBy?.FullName ?? "—")</td>
+                    <td>@(bug.AssignedTo?.FullName ?? "Unassigned")</td>
+                    <td>@bug.CreatedDate.ToString("MMM dd, yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
