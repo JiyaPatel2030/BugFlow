@@ -26,6 +26,7 @@ namespace BugFlow.Web.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Bug -> AssignedTo
+            //one user many bugs
             builder.Entity<Bug>()
                 .HasOne(b => b.AssignedTo)
                 .WithMany(u => u.AssignedBugs)
@@ -33,6 +34,7 @@ namespace BugFlow.Web.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Comment -> Bug (cascade delete is fine here — comments belong to the bug)
+            //1 bug many comments
             builder.Entity<Comment>()
                 .HasOne(c => c.Bug)
                 .WithMany(b => b.Comments)
@@ -40,6 +42,7 @@ namespace BugFlow.Web.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Comment -> User
+            // 1 user many comments
             builder.Entity<Comment>()
                 .HasOne(c => c.User)
                 .WithMany()
