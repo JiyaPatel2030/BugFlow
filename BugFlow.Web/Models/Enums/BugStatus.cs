@@ -1,4 +1,4 @@
-﻿namespace BugFlow.Web.Models.Enums
+namespace BugFlow.Web.Models.Enums
 {
     public enum BugStatus
     {
@@ -6,6 +6,7 @@
         Assigned,
         InProgress,
         Resolved,
+        Verified,
         Closed,
         Reopened
     }

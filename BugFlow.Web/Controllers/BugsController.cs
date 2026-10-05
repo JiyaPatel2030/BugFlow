@@ -312,12 +312,41 @@ namespace BugFlow.Web.Controllers
             // Status update logic
             if (bug.Status != model.Status)
             {
-                bug.Status = model.Status;
+                bool canTransition = false;
 
-                if (model.Status == BugStatus.Resolved &&
-                    bug.ResolvedDate == null)
+                if (isAdmin)
                 {
-                    bug.ResolvedDate = DateTime.UtcNow;
+                    canTransition = true;
+                }
+                else if (isDeveloper)
+                {
+                    if (model.Status == BugStatus.InProgress || model.Status == BugStatus.Resolved)
+                    {
+                        canTransition = true;
+                    }
+                }
+                else if (isTester)
+                {
+                    if (model.Status == BugStatus.Verified || model.Status == BugStatus.Closed || model.Status == BugStatus.Reopened)
+                    {
+                        canTransition = true;
+                    }
+                }
+
+                if (canTransition)
+                {
+                    bug.Status = model.Status;
+
+                    if (model.Status == BugStatus.Resolved &&
+                        bug.ResolvedDate == null)
+                    {
+                        bug.ResolvedDate = DateTime.UtcNow;
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "You do not have permission to transition the bug to the selected status.";
+                    return RedirectToAction(nameof(Details), new { id = bug.Id });
                 }
             }
 
