@@ -1,8 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Welcome";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <i class="bi bi-bug-fill text-main display-1 mb-4 d-block" style="font-size: 80px;"></i>
+            <h1 class="fw-bold mb-4" style="font-size: 3.5rem; letter-spacing: -1px; color: var(--text-main);">
+                Ship better software.<br />Fix bugs faster.
+            </h1>
+            <p class="lead text-meta mb-5" style="font-size: 1.25rem;">
+                BugFlow is the premium, minimalist bug tracking platform for modern engineering teams. 
+                Experience a clutter-free workflow that lets you focus on what really matters: writing great code.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-medium shadow-sm">
+                    Get Started Free
+                </a>
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg px-5 py-3 rounded-pill fw-medium">
+                    Sign In
+                </a>
+            </div>
+            
+            <div class="mt-5 pt-5 border-top" style="border-color: var(--border-subtle) !important;">
+                <div class="row text-start g-4">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
+                            <i class="bi bi-lightning-charge text-main fs-3 mb-3 d-block"></i>
+                            <h4 class="fw-bold mb-2">Lightning Fast</h4>
+                            <p class="text-meta mb-0 small">Navigate through bugs and assignments with zero lag. Our minimalist UI is built for speed.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
+                            <i class="bi bi-shield-check text-main fs-3 mb-3 d-block"></i>
+                            <h4 class="fw-bold mb-2">Role-based Access</h4>
+                            <p class="text-meta mb-0 small">Admins, Testers, and Developers get exactly the tools they need without the noise.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
+                            <i class="bi bi-chat-left-dots text-main fs-3 mb-3 d-block"></i>
+                            <h4 class="fw-bold mb-2">Seamless Comms</h4>
+                            <p class="text-meta mb-0 small">Keep track of every fix and feature request through inline issue discussions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

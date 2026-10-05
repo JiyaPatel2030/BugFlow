@@ -1,0 +1,62 @@
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="row justify-content-center pt-5">
+    <div class="col-md-5 col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-bug-fill text-main mb-3 d-block" style="font-size: 40px;"></i>
+                    <h2 class="fw-bold mb-1" style="font-size: 24px; color: var(--text-main);">Welcome Back</h2>
+                    <p class="text-meta small">Sign in to BugFlow</p>
+                </div>
+
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3" role="alert"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Input.Email" class="form-label fw-medium text-meta small">Email address</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label asp-for="Input.Password" class="form-label fw-medium text-meta small mb-0">Password</label>
+                            <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none small">Forgot?</a>
+                        </div>
+                        <input asp-for="Input.Password" class="form-control mt-1" autocomplete="current-password" aria-required="true" placeholder="••••••••" />
+                        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                    </div>
+                    
+                    <div class="mb-4 d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="Input.RememberMe" style="cursor: pointer;" />
+                            <label asp-for="Input.RememberMe" class="form-check-label small fw-medium text-meta" style="cursor: pointer;">
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-primary py-2 fw-medium rounded-3">Sign In</button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p class="text-meta small mb-0">
+                        Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="fw-medium text-decoration-none">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
