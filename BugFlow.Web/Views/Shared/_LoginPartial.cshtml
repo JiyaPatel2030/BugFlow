@@ -1,27 +1,50 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @using BugFlow.Web.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
-            <button type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+    var currentUser = await UserManager.GetUserAsync(User);
+    var initials = "U";
+    var fullName = User.Identity?.Name;
+    var role = "User";
+
+    if (currentUser != null)
+    {
+        fullName = !string.IsNullOrWhiteSpace(currentUser.FullName) ? currentUser.FullName : currentUser.Email;
+        if (!string.IsNullOrWhiteSpace(currentUser.FullName))
+        {
+            initials = currentUser.FullName.Substring(0, 1).ToUpper();
+        }
+        else if (!string.IsNullOrWhiteSpace(currentUser.Email))
+        {
+            initials = currentUser.Email.Substring(0, 1).ToUpper();
+        }
+
+        var roles = await UserManager.GetRolesAsync(currentUser);
+        role = roles.FirstOrDefault() ?? "User";
+    }
+
+    <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2">
+            <div class="avatar">@initials</div>
+            <div class="d-flex flex-column lh-1">
+                <span class="fw-semibold" style="color: var(--text-main); font-size: 14px;">@fullName</span>
+                <span class="text-meta">@role</span>
+            </div>
+        </div>
+        <form class="m-0" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+            <button type="submit" class="btn btn-sm btn-secondary d-flex align-items-center gap-1">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
         </form>
-    </li>
+    </div>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    <div class="d-flex align-items-center gap-2">
+        <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </div>
 }
-</ul>

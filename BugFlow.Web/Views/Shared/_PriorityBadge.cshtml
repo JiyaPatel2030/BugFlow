@@ -1,0 +1,14 @@
+@using BugFlow.Web.Models.Enums
+@model BugPriority
+
+@{
+    var badgeClass = Model switch
+    {
+        BugPriority.Low => "badge-priority-low",
+        BugPriority.Medium => "badge-priority-medium",
+        BugPriority.High => "badge-priority-high",
+        BugPriority.Critical => "badge-priority-critical",
+        _ => "badge-priority-low"
+    };
+}
+<span class="badge @badgeClass">@Model.ToString()</span>

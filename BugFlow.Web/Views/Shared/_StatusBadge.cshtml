@@ -1,0 +1,19 @@
+@using BugFlow.Web.Models.Enums
+@model BugStatus
+
+@{
+    var badgeClass = Model switch
+    {
+        BugStatus.New => "badge-status-new",
+        BugStatus.Assigned => "badge-status-assigned",
+        BugStatus.InProgress => "badge-status-inprogress",
+        BugStatus.Resolved => "badge-status-resolved",
+        BugStatus.Verified => "badge-status-closed",
+        BugStatus.Closed => "badge-status-closed",
+        BugStatus.Reopened => "badge-status-reopened",
+        _ => "badge-status-slate"
+    };
+
+    var displayName = Model == BugStatus.InProgress ? "In Progress" : Model.ToString();
+}
+<span class="badge @badgeClass">@displayName</span>
