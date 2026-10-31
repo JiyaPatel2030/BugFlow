@@ -2,49 +2,183 @@
     ViewData["Title"] = "Welcome";
 }
 
-<div class="container py-5 text-center">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <i class="bi bi-bug-fill text-main display-1 mb-4 d-block" style="font-size: 80px;"></i>
-            <h1 class="fw-bold mb-4" style="font-size: 3.5rem; letter-spacing: -1px; color: var(--text-main);">
-                Ship better software.<br />Fix bugs faster.
-            </h1>
-            <p class="lead text-meta mb-5" style="font-size: 1.25rem;">
-                BugFlow is the premium, minimalist bug tracking platform for modern engineering teams. 
-                Experience a clutter-free workflow that lets you focus on what really matters: writing great code.
-            </p>
-            <div class="d-flex justify-content-center gap-3">
-                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-medium shadow-sm">
-                    Get Started Free
-                </a>
-                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg px-5 py-3 rounded-pill fw-medium">
-                    Sign In
-                </a>
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        padding: 8rem 0 6rem;
+        background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.1) 0%, transparent 40%),
+                    radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.05) 0%, transparent 40%);
+    }
+
+    .hero-title {
+        font-size: 4.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, var(--text-main) 0%, #475569 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.8s ease-out;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        line-height: 1.7;
+        animation: fadeUp 1s ease-out;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 100%;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: rgba(79, 70, 229, 0.3);
+    }
+
+    .feature-icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 24px;
+    }
+
+    .icon-blue { background: #EEF2FF; color: #4F46E5; }
+    .icon-emerald { background: #ECFDF5; color: #059669; }
+    .icon-rose { background: #FFF1F2; color: #E11D48; }
+
+    .btn-hero {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        animation: fadeUp 1.2s ease-out;
+    }
+
+    .btn-hero-primary {
+        background: linear-gradient(135deg, var(--accent-main) 0%, #6366f1 100%);
+        color: white;
+        box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        border: none;
+    }
+
+    .btn-hero-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 20px -3px rgba(79, 70, 229, 0.4);
+        color: white;
+    }
+
+    .btn-hero-secondary {
+        background: white;
+        color: var(--text-main);
+        border: 1px solid var(--border-subtle);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-hero-secondary:hover {
+        background: var(--bg-base);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        color: var(--text-main);
+    }
+
+    @@keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .floating-shape {
+        position: absolute;
+        filter: blur(40px);
+        opacity: 0.5;
+        z-index: -1;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @@keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
+
+<div class="hero-section">
+    <!-- Decorative shapes -->
+    <div class="floating-shape" style="top: 10%; left: 15%; width: 200px; height: 200px; background: rgba(79, 70, 229, 0.2); border-radius: 50%;"></div>
+    <div class="floating-shape" style="bottom: 20%; right: 10%; width: 250px; height: 250px; background: rgba(236, 72, 153, 0.15); border-radius: 50%; animation-delay: -3s;"></div>
+
+    <div class="container text-center position-relative">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4" style="background: rgba(79, 70, 229, 0.1); color: var(--accent-main); font-weight: 500; font-size: 0.9rem; animation: fadeUp 0.6s ease-out;">
+                    <i class="bi bi-stars"></i> BugFlow 2.0 is now live
+                </div>
+                
+                <h1 class="hero-title">
+                    Ship better software.<br />Fix bugs faster.
+                </h1>
+                
+                <p class="hero-subtitle">
+                    The premium, minimalist bug tracking platform for modern engineering teams. 
+                    Experience a clutter-free workflow that lets you focus on what really matters: writing great code.
+                </p>
+                
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-hero btn-hero-primary d-flex align-items-center gap-2">
+                        Get Started Free <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-hero btn-hero-secondary">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-5 pt-5 text-start">
+            <div class="col-md-4" style="animation: fadeUp 1.4s ease-out;">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper icon-blue">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h4 class="fw-bold mb-3 fs-5">Lightning Fast</h4>
+                    <p class="text-muted mb-0">Navigate through bugs and assignments with zero lag. Our minimalist UI is built from the ground up for speed.</p>
+                </div>
             </div>
             
-            <div class="mt-5 pt-5 border-top" style="border-color: var(--border-subtle) !important;">
-                <div class="row text-start g-4">
-                    <div class="col-md-4">
-                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
-                            <i class="bi bi-lightning-charge text-main fs-3 mb-3 d-block"></i>
-                            <h4 class="fw-bold mb-2">Lightning Fast</h4>
-                            <p class="text-meta mb-0 small">Navigate through bugs and assignments with zero lag. Our minimalist UI is built for speed.</p>
-                        </div>
+            <div class="col-md-4" style="animation: fadeUp 1.6s ease-out;">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper icon-emerald">
+                        <i class="bi bi-shield-check"></i>
                     </div>
-                    <div class="col-md-4">
-                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
-                            <i class="bi bi-shield-check text-main fs-3 mb-3 d-block"></i>
-                            <h4 class="fw-bold mb-2">Role-based Access</h4>
-                            <p class="text-meta mb-0 small">Admins, Testers, and Developers get exactly the tools they need without the noise.</p>
-                        </div>
+                    <h4 class="fw-bold mb-3 fs-5">Role-based Access</h4>
+                    <p class="text-muted mb-0">Custom permissions ensure Admins, Testers, and Developers get exactly the tools they need without the noise.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4" style="animation: fadeUp 1.8s ease-out;">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper icon-rose">
+                        <i class="bi bi-chat-dots-fill"></i>
                     </div>
-                    <div class="col-md-4">
-                        <div class="p-4 rounded-4" style="background: var(--bg-base); border: 1px solid var(--border-subtle);">
-                            <i class="bi bi-chat-left-dots text-main fs-3 mb-3 d-block"></i>
-                            <h4 class="fw-bold mb-2">Seamless Comms</h4>
-                            <p class="text-meta mb-0 small">Keep track of every fix and feature request through inline issue discussions.</p>
-                        </div>
-                    </div>
+                    <h4 class="fw-bold mb-3 fs-5">Seamless Comms</h4>
+                    <p class="text-muted mb-0">Keep track of every fix and feature request through powerful, intuitive inline issue discussions.</p>
                 </div>
             </div>
         </div>
